@@ -1,7 +1,7 @@
 {% extends 'index.html' %}`
 {% block content %}
 
-{% if user.is_authenticated and user.is_superuser %}
+{% if user.is_authenticated or user.is_superuser%}
 	<nav class="navbar navbar-expand-lg navbar-light mb-4 sticky-top" style="background-color: #000000;">
 		<div class="container-fluid">
 		  <img src="/static/img/2.png" width="50" height="50">
@@ -12,9 +12,8 @@
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul class="navbar-nav mr-auto">
 
-	
 			    <li class="nav-item active">
-			        <a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'admin_home' %}">Inicio</a>
+			        <a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'Nuevo_pedido' %}">Nuevo pedido de servicio</a>
 			    </li>
 
 			    </ul>
@@ -26,9 +25,9 @@
 					        </a>
 					        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 					          <a class="dropdown-item" href="{% url 'password_change' %}"> Cambiar contrasena</a>
-					          {% if user.is_staff and user.is_authenticated %}
+					          {% if user.is_superuser and user.is_authenticated %}
 					          <div class="dropdown-divider"></div>
-					          <a class="dropdown-item" href="#">Lista de empleados</a>
+					          <a class="dropdown-item" href="{% url 'Listado_empleados' %}">Lista de empleados</a>
 					          <div class="dropdown-divider"></div>
 					          <a class="dropdown-item" href="{% url 'singup' %}">Registrar nuevo empleado</a>
 					          {% endif %}
@@ -57,39 +56,75 @@
 	<div class="container-fluid">
 		<div class="row">
 
-			<div class="col col-md-3"></div>
+			<div class="col col-md-2"></div>
 
-			<div class="col col-md-6 mt-5">
+			<div class="col col-md-8 mt-5">
 				<div class="table-responsive">
 					<table class="table bg-light">
 					  <thead>
 					    <tr>
-					      <th scope="col">Nombre</th>
-					      <th scope="col">Apellido</th>
-					      <th scope="col">Opcion</th>
+					      <th scope="col">Nombre del cliente</th>
+					      <th scope="col">Fecha de ingreso</th>
+					      <th scope="col">Fecha de egreso</th>
+					      <th scope="col">Estado del pedido</th>
+					      <th scope="col">numero de Tracking</th>
+					      <th scope="col">Opciones</th>
 					    </tr>
 					  </thead>
 					  <tbody class="bg-light">
 					  	{% if object_list %}
-					  		{% for Users in object_list %}
+					  		{% for pedido in object_list %}
 					    		<tr>
-					      			<td>{{Users.first_name}}</td>
-					      			<td>{{Users.last_name}}</td>
-					      			<td>
+					      			<td>{{pedido.persona.nombre}} {{pedido.persona.apellido}}</td>
+
+					      			<td>{{pedido.fecha_ingreso}}</td>
+
+					      			{% if pedido.fecha_egreso%}
+					      				<td>{{pedido.fecha_egreso}}</td>
+					      			{% else %}
+					      				<td>--/--/----</td>
 					      				
+					      			{% endif %}
 
-					      				<!--a class="btn btn-secondary" href="{% url 'Editar_ususario' pk=Users.id %}" target="popup" onclick="window.open('{% url 'Editar_ususario' pk=Users.id %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
-										    Editar usuario
-										</a-->
-										<a href="{% url 'Editar_ususario' pk=Users.id %}" class="btn btn-secondary">Editar ususario.</a>
+					      			{% if pedido.estado.etapa == "Recibido" %}
+
+					      				<td>
+					      					<div class="alert alert-info" role="alert">
+												{{pedido.estado.etapa}}
+											</div>
+					      				</td>	
+					      			{% endif %}
 
 
-					      				<a href="{% url 'borrar_ususario' pk=Users.id %}" class="btn btn-danger">Borrar ususario.</a>
+					      			{% if pedido.estado.etapa == "En proceso" %}
+
+					      				<td>
+					      					<div class="alert alert-warning" role="alert">
+												{{pedido.estado.etapa}}
+											</div>
+					      				</td>	
+					      			{% endif %}
+
+
+					      			{% if pedido.estado.etapa == "Terminado" %}
+
+					      				<td>
+					      					<div class="alert alert-success" role="alert">
+												{{pedido.estado.etapa}}
+											</div>
+					      				</td>	
+					      			{% endif %}
+
+					      			<td><a href="#">{{pedido.tracking }}</a></td>
+					      			<td>
+					      				<a class="btn btn-secondary" href="#">Actualizar</a>
+
+					      				<a href="#" class="btn btn-danger">Borrar</a>
 					      			</td>
 					      	{% endfor %}
 					    {% else %}
 					    	<div class="alert alert-danger" role="alert">
-								No hay empleados registrados por los momentos.
+								No hay pedidos registrados por los momentos.
 							</div>
 						{% endif %}
 
@@ -99,13 +134,9 @@
 				</div>
 			</div>
 
-			<div class="col col-md-3"></div>
+			<div class="col col-md-2"></div>
 
 		</div>
 	</div>
-{% else %}
-
-<h2 class="text-danger">Acceso denegado</h2>
-
 {% endif %}
 {% endblock %}

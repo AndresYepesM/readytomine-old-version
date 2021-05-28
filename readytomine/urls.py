@@ -15,4 +15,7 @@ urlpatterns = [
 
     # Users administration site
     re_path('', include('user.urls')),
+
+    #
+    re_path('servicio/', include('servicio.urls')),
 ]
