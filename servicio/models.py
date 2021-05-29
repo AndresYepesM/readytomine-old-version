@@ -6,7 +6,7 @@ class Cliente(models.Model):
 	nombre = models.CharField(max_length=65, verbose_name='Nombre del cliente')
 	apellido = models.CharField(max_length=65, verbose_name='Apellido del cliente')
 	cedula = models.IntegerField()
-	num_telf = models.IntegerField()
+	num_telf = models.BigIntegerField()
 	email = models.EmailField(max_length=254, verbose_name='Correo Electronico')
 	direccion = models.CharField(max_length=500, verbose_name='Direccion del cliente')
 	class Meta:

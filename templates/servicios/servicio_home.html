@@ -1,7 +1,7 @@
 {% extends 'index.html' %}`
 {% block content %}
 
-{% if user.is_authenticated or user.is_superuser%}
+{% if user.is_staff or user.is_superuser%}
 	<nav class="navbar navbar-expand-lg navbar-light mb-4 sticky-top" style="background-color: #000000;">
 		<div class="container-fluid">
 		  <img src="/static/img/2.png" width="50" height="50">
@@ -14,6 +14,10 @@
 
 			    <li class="nav-item active">
 			        <a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'Nuevo_pedido' %}">Nuevo pedido de servicio</a>
+			    </li>
+
+			   	<li class="nav-item active">
+			        <a class="nav-link text-light btn btn-outline-light ml-2" href="#">Listas de clientes</a>
 			    </li>
 
 			    </ul>
@@ -59,23 +63,24 @@
 			<div class="col col-md-2"></div>
 
 			<div class="col col-md-8 mt-5">
-				<div class="table-responsive">
-					<table class="table bg-light">
-					  <thead>
-					    <tr>
-					      <th scope="col">Nombre del cliente</th>
-					      <th scope="col">Fecha de ingreso</th>
-					      <th scope="col">Fecha de egreso</th>
-					      <th scope="col">Estado del pedido</th>
-					      <th scope="col">numero de Tracking</th>
-					      <th scope="col">Opciones</th>
-					    </tr>
-					  </thead>
-					  <tbody class="bg-light">
-					  	{% if object_list %}
-					  		{% for pedido in object_list %}
+						<div class="table-responsive">
+							<table class="table bg-light">
+					  		<thead>
 					    		<tr>
-					      			<td>{{pedido.persona.nombre}} {{pedido.persona.apellido}}</td>
+					      			<th scope="col">Nombre del cliente</th>
+					      			<th scope="col">Fecha de ingreso</th>
+					      			<th scope="col">Fecha de egreso</th>
+					      			<th scope="col">Estado del pedido</th>
+					      			<th scope="col">numero de Tracking</th>
+					      			<th scope="col">Opciones</th>
+					    		</tr>
+					  		</thead>
+					  						{% if object_list %}
+					{% for pedido in object_list %}
+					  		<tbody class="bg-light">
+
+					    		<tr>
+					      			<td><a href="{% url 'cliente' pk=pedido.persona.id%}" target="popup" onclick="window.open('{% url 'cliente' pk=pedido.persona.id%}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">{{pedido.persona.nombre}} {{pedido.persona.apellido}}</a></td>
 
 					      			<td>{{pedido.fecha_ingreso}}</td>
 
@@ -117,12 +122,13 @@
 
 					      			<td><a href="#">{{pedido.tracking }}</a></td>
 					      			<td>
-					      				<a class="btn btn-secondary" href="#">Actualizar</a>
+					      				<a class="btn btn-secondary" href="{% url 'update_pedido' pk=pedido.id%}">Actualizar pedido</a>
 
 					      				<a href="#" class="btn btn-danger">Borrar</a>
 					      			</td>
 					      	{% endfor %}
 					    {% else %}
+					    
 					    	<div class="alert alert-danger" role="alert">
 								No hay pedidos registrados por los momentos.
 							</div>
@@ -138,5 +144,8 @@
 
 		</div>
 	</div>
+{% else %}
+
+	<h2 class="text-danger">Acceso denegado</h2>
 {% endif %}
 {% endblock %}

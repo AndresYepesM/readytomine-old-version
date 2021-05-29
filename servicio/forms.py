@@ -26,3 +26,46 @@ class NewPedido(forms.ModelForm):
 			'estado': 'estado del pedido',
 			'tracking': 'Tracking number',
 		}
+
+class NewCliente(forms.ModelForm):
+	class Meta:
+
+		model = Cliente
+		fields=[
+			'nombre',
+			'apellido',
+			'cedula',
+			'num_telf',
+			'email',
+			'direccion'
+		]
+		labels = {
+			'nombre': 'Nombre del cliente',
+			'apellido': 'Apellido del cliente',
+			'cedula': 'Identificacion del cliente',
+			'num_telf': 'Numero telefonico del cliente',
+			'email': 'Correo del cliente',
+			'direccion': 'Domicilio del cliente',
+		}
+
+class MostrarCliente(forms.ModelForm):
+	class Meta:
+		model = Cliente
+		
+		fields=[
+			'nombre',
+			'apellido',
+			'cedula',
+			'num_telf',
+			'email',
+			'direccion'
+		]
+
+		labels = {
+			'nombre': 'Nombre del cliente',
+			'apellido': 'Apellido del cliente',
+			'cedula': 'Identificacion del cliente',
+			'num_telf': 'Numero telefonico del cliente',
+			'email': 'Correo del cliente',
+			'direccion': 'Domicilio del cliente',
+		}

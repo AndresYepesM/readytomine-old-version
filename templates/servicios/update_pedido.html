@@ -66,11 +66,7 @@
 							{% csrf_token %}
 							{{ form|crispy }}
 
-							<button type="submit" class="btn btn-primary" value="Random Number!" onclick="Random();" >Nuevo pedido</button>
-
-							<a class="btn btn-info" href="{% url 'Nuevo_cliente' %}" target="popup" onclick="window.open('{% url 'Nuevo_cliente' %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
-								Nuevo cliente
-							</a>
+							<button type="submit" class="btn btn-primary">Actualizar</button>
 							
 							<a href="{% url 'listado_pedidos' %}" class="btn btn-secondary">Regresar</a>
 						</form>
@@ -79,13 +75,6 @@
 			</div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		function Random() {
-        	var rnd = Math.floor(Math.random() * 1000000000);
-        	document.getElementById('id_tracking').value = rnd;
-    	}
-	</script>
 {% else %}
 	<h2 class="text-danger">Acceso denegado</h2>
 {% endif %}
