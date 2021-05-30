@@ -23,5 +23,6 @@ urlpatterns = [
     # Update Pedido
      re_path(r'^pedido/(?P<pk>\d+)$', login_required(UpdatePedido.as_view()), name='update_pedido'),
 
-    
+    # tracing number page
+    re_path(r'^track_del_pedido/(?P<pk>\d+)$', views.TrackingPage, name='track_pedido')
 ]

@@ -48,3 +48,8 @@ class UpdatePedido(UpdateView):
 	form_class = NewPedido
 	template_name = 'servicios/update_pedido.html'
 	success_url = reverse_lazy('listado_pedidos')
+
+def TrackingPage(request, pk):
+
+	context = {'posts': Pedido.objects.get(id=pk)}
+	return render(request, 'servicios/track_pedido.html', context)
