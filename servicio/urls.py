@@ -1,9 +1,12 @@
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from servicio import views
-from .views import ServicioList, NewServicio, NewClient, ShowCliente, UpdatePedido
+from .views import ServicioList, NewServicio, UpdatePedido, NewClient, ShowPedido
+
 
 urlpatterns = [
 
@@ -18,11 +21,15 @@ urlpatterns = [
 
 
     # Show Cliente
-    re_path(r'^cliente/(?P<pk>\d+)$', login_required(ShowCliente.as_view()), name='cliente'),
+    re_path(r'^cliente/(?P<pk>\d+)$', views.ShowCliente, name='cliente'),
+
+    # Show Order
+    #re_path(r'pedido/(?P<pk>\d+)$', views.ShowOrder, name='Orden_pedido'),
+    path(r'^Servicio/(?P<pk>\d+)$', login_required(ShowPedido.as_view()), name='Orden_pedido'),
 
     # Update Pedido
-     re_path(r'^pedido/(?P<pk>\d+)$', login_required(UpdatePedido.as_view()), name='update_pedido'),
+    re_path(r'^pedido/(?P<pk>\d+)$', login_required(UpdatePedido.as_view()), name='update_pedido'),
 
     # tracing number page
-    re_path(r'^track_del_pedido/(?P<pk>\d+)$', views.TrackingPage, name='track_pedido')
-]
+    #re_path(r'^track_del_pedido/(?P<pk>\d+)$', views.TrackingPage, name='track_pedido')
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

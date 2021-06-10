@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import NewPedido, NewCliente, MostrarCliente
+from .forms import NewPedido, UpdatePedido, NewClient #, MostrarCliente
 from .models import *
 
 # Create your views here.
@@ -21,6 +21,7 @@ class ServicioList(ListView):
 	model = Pedido
 	template_name = 'servicios/servicio_home.html'
 
+
 class NewServicio(CreateView):
 	# Creacion de nuevos pedidos de servicio
 	model = Pedido
@@ -28,28 +29,35 @@ class NewServicio(CreateView):
 	template_name = 'servicios/nuevo_servicio.html'
 	success_url = reverse_lazy('listado_pedidos')
 
-class NewClient(CreateView):
-	# Creacion de nuevos clientes
-	model = Cliente
-	form_class = NewCliente
-	template_name = 'servicios/nuevo_cliente.html'
-	success_url = reverse_lazy('listado_pedidos')
-
-class ShowCliente(UpdateView):
-	# Mostrar datos clientes
-	model = Cliente
-	form_class = MostrarCliente
-	template_name = 'servicios/show_cliente.html'
-	success_url = reverse_lazy('listado_pedidos')
-
-
 class UpdatePedido(UpdateView):
 	model = Pedido
-	form_class = NewPedido
+	form_class = UpdatePedido
 	template_name = 'servicios/update_pedido.html'
 	success_url = reverse_lazy('listado_pedidos')
 
-def TrackingPage(request, pk):
+#@login_required(login_url='/accounts/login')
+#def ShowOrder(request, pk):
+#	# Show Order information.
+#	context = {'posts': Pedido.objects.get(orden_pedido=pk)}
+#	return render(request,  'servicios/show_order.html', context)
 
-	context = {'posts': Pedido.objects.get(id=pk)}
-	return render(request, 'servicios/track_pedido.html', context)
+class ShowPedido(ListView):
+	# Listado de los pedidos de servicio
+	model = Pedido
+	template_name = 'servicios/show_order.html'
+
+
+@login_required(login_url='/accounts/login/')
+# Show clients information
+def ShowCliente(request, pk):
+
+	context = {'posts': Cliente.objects.get(id=pk)}
+	return render(request, 'servicios/show_cliente.html', context)
+
+
+class NewClient(CreateView):
+# new client class
+	model = Cliente
+	form_class = NewClient
+	template_name = 'servicios/nuevo_cliente.html'
+	success_url = reverse_lazy('Nuevo_cliente')

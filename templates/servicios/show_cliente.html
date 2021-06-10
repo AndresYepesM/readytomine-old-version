@@ -59,14 +59,35 @@
 		<div class="row justify-content-center">
 			<div class="col col-md-12 col-lg-6">
 				<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+					 <div class="card-header"><h3>Datos del cliente</h3></div>
 					<div class="card-body">
-						<h2>Datos del cliente</h2>
+						
+						<h5>
+						  Nombre del cliente:
+						  <small class="text-muted">{{posts.nombre}} {{posts.apellido}}</small>
+						</h5>
 
-						<form method="post" class="disabled">
-							{% csrf_token %}
-							{{ form|crispy}}							
-							<a href="{% url 'listado_pedidos' %}" class="btn btn-secondary">Regresar</a>
-						</form>
+						<h5>
+						  Cedula de identidad:
+						  <small class="text-muted">{{posts.cedula}}</small>
+						</h5>
+
+						<h5>
+						  Numero de telefono:
+						  <small class="text-muted">{{posts.num_telf}}</small>
+						</h5>
+
+						<h5>
+						  Correo electronico:
+						  <small class="text-muted">{{posts.email}}</small>
+						</h5>
+
+						<h5>
+						  Direccion del cliente:
+						  <small class="text-muted">{{posts.direccion}}</small>
+						</h5>
+
+						<!--a href="{% url 'listado_pedidos' %}" class="btn btn-secondary">Regresar</a-->
 					</div>
 				</div>
 			</div>
