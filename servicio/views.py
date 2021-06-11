@@ -35,16 +35,11 @@ class UpdatePedido(UpdateView):
 	template_name = 'servicios/update_pedido.html'
 	success_url = reverse_lazy('listado_pedidos')
 
-#@login_required(login_url='/accounts/login')
-#def ShowOrder(request, pk):
-#	# Show Order information.
-#	context = {'posts': Pedido.objects.get(orden_pedido=pk)}
-#	return render(request,  'servicios/show_order.html', context)
-
-class ShowPedido(ListView):
-	# Listado de los pedidos de servicio
-	model = Pedido
-	template_name = 'servicios/show_order.html'
+@login_required(login_url='/accounts/login')
+def ShowOrder(request, pk):
+	# Show Order information.
+	context = {'posts': Pedido.objects.get(orden_pedido=pk)}
+	return render(request,  'servicios/show_order.html', context)
 
 
 @login_required(login_url='/accounts/login/')
