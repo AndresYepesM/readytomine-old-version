@@ -41,12 +41,11 @@ class UpdatePedido(forms.ModelForm):
 			'fecha_ingreso',
 			'fecha_taller',
 			'fecha_egreso',
-			'partes',
 			'estado',
 		]
 		exclude =[
 			'orden_pedido',
-
+			'partes',
 			'qr_code',
 		]
 		labels = {
@@ -79,4 +78,21 @@ class NewClient(forms.ModelForm):
 			'num_telf': 'Numero telefonico del cliente',
 			'email': 'Correo del cliente',
 			'direccion': 'Domicilio del cliente',
+		}
+
+class NewPart(forms.ModelForm):
+	class Meta:
+
+		model=Partes
+		fields={
+			'tipo_parte',
+			'serial_parte',
+		}
+
+		exclude={'proceso',}
+
+		labels={
+			'tipo_parte': 'Nombre o tipo de la parte',
+
+			'serial_parte': 'Serial de la parte'
 		}

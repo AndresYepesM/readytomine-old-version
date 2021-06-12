@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import NewPedido, UpdatePedido, NewClient #, MostrarCliente
+from .forms import NewPedido, UpdatePedido, NewClient, NewPart
 from .models import *
 
 # Create your views here.
@@ -45,7 +45,6 @@ def ShowOrder(request, pk):
 @login_required(login_url='/accounts/login/')
 # Show clients information
 def ShowCliente(request, pk):
-
 	context = {'posts': Cliente.objects.get(id=pk)}
 	return render(request, 'servicios/show_cliente.html', context)
 
@@ -56,3 +55,10 @@ class NewClient(CreateView):
 	form_class = NewClient
 	template_name = 'servicios/nuevo_cliente.html'
 	success_url = reverse_lazy('Nuevo_cliente')
+
+class NewPart(CreateView):
+
+	model = Partes
+	form_class = NewPart
+	template_name='servicios/new_part.html'
+	success_url=reverse_lazy('Nueva_parte')

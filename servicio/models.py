@@ -27,11 +27,14 @@ class Estado(models.Model):
 		verbose_name_plural="Etapa del pedido"
 	def __str__(self):
 		return str(self.etapa)
-		
+
 
 class Partes(models.Model):
 	tipo_parte = models.CharField(max_length=65, verbose_name='Tipo de parte')
 	serial_parte = models.CharField(max_length=65, verbose_name= 'Serial de las parte')
+	class Meta:
+		ordering=["-id"]
+		verbose_name_plural ="Partes por arreglar"
 	def __str__(self):
 		return '{} {}'.format(self.tipo_parte, self.serial_parte)
 

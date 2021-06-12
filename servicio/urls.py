@@ -5,7 +5,7 @@ from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from servicio import views
-from .views import ServicioList, NewServicio, UpdatePedido, NewClient
+from .views import ServicioList, NewServicio, UpdatePedido, NewClient, NewPart
 
 
 urlpatterns = [
@@ -19,6 +19,8 @@ urlpatterns = [
     # New Cliente
     path('nuevo_cliente/', login_required(NewClient.as_view()), name='Nuevo_cliente'),
 
+    # New Part
+    path('Nueva_parte_pedido/', login_required(NewPart.as_view()), name='Nueva_parte'),
 
     # Show Cliente
     re_path(r'^cliente/(?P<pk>\d+)$', views.ShowCliente, name='cliente'),
