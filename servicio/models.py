@@ -4,6 +4,7 @@ from io import BytesIO
 from django.core.files import File
 from PIL import Image, ImageDraw
 from django.contrib import admin
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -31,7 +32,9 @@ class Estado(models.Model):
 
 class Partes(models.Model):
 	tipo_parte = models.CharField(max_length=65, verbose_name='Tipo de parte')
-	serial_parte = models.CharField(max_length=65, verbose_name= 'Serial de las parte')
+	serial_parte = models.CharField(max_length=20, verbose_name= 'Serial de las parte')
+	if_garantia = models.BooleanField(null=True)
+	emplo_name = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 	class Meta:
 		ordering=["-id"]
 		verbose_name_plural ="Partes por arreglar"

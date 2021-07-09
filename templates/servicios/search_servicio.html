@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if user.is_staff and user.is_authenticated %}
+
+	
+
+{% else %}
+	<h2 class="text-danger">Acceso denegado</h2>
+{% endif %}
+{% endblock %}

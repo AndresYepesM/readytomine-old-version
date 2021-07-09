@@ -66,18 +66,18 @@
 							{% csrf_token %}
 							{{ form|crispy }}
 
-							<button type="submit" class="btn btn-primary" value="Random Number!" onclick="Random();" >Nuevo pedido</button>
+							<button type="submit" class="btn btn-primary" value="Random Number!" onclick="Random();"> Generar nuevo pedido</button>
 
-							<a class="btn btn-info" href="{% url 'Nuevo_cliente' %}" target="popup" onclick="window.open('{% url 'Nuevo_cliente' %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
+							<a class="btn btn-secondary" href="{% url 'Nuevo_cliente' %}" target="popup" onclick="window.open('{% url 'Nuevo_cliente' %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
 								Nuevo cliente
 							</a>
 
 
-							<a class="btn btn-info" href="{% url 'Nueva_parte' %}" target="popup" onclick="window.open('{% url 'Nueva_parte' %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
+							<a class="btn btn-secondary" href="{% url 'Nueva_parte' %}" target="popup" onclick="window.open('{% url 'Nueva_parte' %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
 								Agregar Partes
 							</a>
 							
-							<a href="{% url 'listado_pedidos' %}" class="btn btn-secondary">Regresar</a>
+							<a href="{% url 'listado_pedidos' %}" class="btn btn-danger">Regresar</a>
 						</form>
 					</div>
 				</div>

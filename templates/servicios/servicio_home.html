@@ -18,12 +18,24 @@
 			    </li>
 
 			    <li class="nav-item active">
+
+			    	<a class="nav-link text-light btn btn-outline-light ml-2" href="#" target="popup" onclick="window.open('#','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
+						Buscar pedido
+					</a>
+
+			    </li>
+
+			    <li class="nav-item active">
 			        <a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'Nuevo_pedido' %}">Nuevo pedido de servicio</a>
 			    </li>
 
-			   	<li class="nav-item active">
-			        <a class="nav-link text-light btn btn-outline-light ml-2" href="#">Listas de clientes</a>
-			    </li>
+			    {% if user.is_superuser and user.is_authenticated %}
+
+			    	<li class="nav-item active">
+			       		<a class="nav-link text-light btn btn-outline-light ml-2" href="#">Listas de clientes</a>
+			    	</li>
+
+			    {% endif %}
 
 			    </ul>
 			    	{% if user.is_authenticated %}
@@ -65,9 +77,10 @@
 	<div class="container-fluid">
 		<div class="row">
 
-			<div class="col col-md-1"></div>
+			<div class="col col-md-6 mt-5">
+				
+				<h3 class="bg-light tect-dark pt-1 pb-1 pl-3" style="border-radius: 10px 10px 10px 10px;">Pedidos en proceso.</h3>
 
-			<div class="col col-md-10 mt-5">
 				<div class="table-responsive">
 					<table class="table bg-light">
 					  	<thead>
@@ -86,6 +99,8 @@
 
 					  		{% if object_list %}
 								{% for pedido in object_list %}
+									{% if pedido.estado.etapa != "Terminado" %}
+
 					  				<tr>
 										<td>
 											<a href="{% url 'Orden_pedido' pk=pedido.orden_pedido %}" target="popup" onclick="window.open('{% url 'Orden_pedido' pk=pedido.orden_pedido %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">{{pedido.orden_pedido}}</a>
@@ -120,7 +135,7 @@
 							      		{% endif %}
 
 
-							      		{% if pedido.estado.etapa == "En proceso" %}
+							      		{% if pedido.estado.etapa == "En Proceso" %}
 
 							      			<td>
 							      				<div class="alert alert-warning" role="alert">
@@ -143,15 +158,16 @@
 							      		</td>
 
 							      		<td>
-							      			<a class="btn btn-secondary" href="{% url 'update_pedido' pk=pedido.id %}">Actualizar pedido</a>
+							      			<a class="btn btn-secondary btn-block" href="{% url 'update_pedido' pk=pedido.id %}">Actualizar</a>
 
 							      			{% if user.is_superuser and user.is_authenticated %}
-							      				<a href="#" class="btn btn-danger">Borrar</a>
+							      				<a href="#" class="btn btn-danger btn-block">Borrar</a>
 							      			{% else %}
 
 							      			{% endif %}
 							      		</td>
 							      	</tr>
+							      	{% endif %}
 							    {% endfor %}
 							{% else %}
 
@@ -161,11 +177,211 @@
 				</div>
 			</div>
 
-			<div class="col col-md-1"></div>
+			<div class="col col-md-6 mt-5">
+
+				<h3 class="bg-light tect-dark pt-1 pb-1 pl-3" style="border-radius: 10px 10px 10px 10px;">Pedidos terminados.</h3>
+
+				<div class="table-responsive">
+					<table class="table bg-light">
+					  	<thead>
+					  			<tr>
+					      			<th scope="col">Orden de Pedido</th>
+					      			<th scope="col">Nombre del Cliente</th>
+					      			<th scope="col">Fecha de ingreso</th>
+					      			<th scope="col">Fecha de ingreso al taller</th>
+					      			<th scope="col">Fecha de egreso</th>
+					      			<th scope="col">Estado del pedido</th>
+					      			<th scope="col">Codigo qr</th>
+					      			<th scope="col">Opciones</th>
+					    		</tr>
+					  		</thead>
+					  		<tbody class="bg-light">
+
+					  		{% if object_list %}
+								{% for pedido in object_list %}
+									{% if pedido.estado.etapa == "Terminado" %}
+
+					  				<tr>
+										<td>
+											<a href="{% url 'Orden_pedido' pk=pedido.orden_pedido %}" target="popup" onclick="window.open('{% url 'Orden_pedido' pk=pedido.orden_pedido %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">{{pedido.orden_pedido}}</a>
+										</td>
+
+										<td>
+											<a href="{% url 'cliente' pk=pedido.persona.id %}" target="popup" onclick="window.open('{% url 'cliente' pk=pedido.persona.id %}','popup','width=800,height=800,scrollbars=no,resizable=no, center'); return false;">{{pedido.persona.nombre}} {{pedido.persona.apellido}} </a>
+										</td>
+
+							      		<td>{{pedido.fecha_ingreso}}</td>
+
+							      		{% if pedido.fecha_taller%}
+							      			<td>{{pedido.fecha_taller}}</td>
+							      		{% else %}
+							      			<td>--/--/----</td>	
+							      		{% endif %}
+
+
+							      		{% if pedido.fecha_egreso%}
+							      			<td>{{pedido.fecha_egreso}}</td>
+							      		{% else %}
+							      			<td>--/--/----</td>	
+							      		{% endif %}
+
+							      		{% if pedido.estado.etapa == "Recibido" %}
+
+							      			<td>
+							      				<div class="alert alert-info" role="alert">
+													{{pedido.estado.etapa}}
+												</div>
+							      			</td>	
+							      		{% endif %}
+
+
+							      		{% if pedido.estado.etapa == "En Proceso" %}
+
+							      			<td>
+							      				<div class="alert alert-warning" role="alert">
+													{{pedido.estado.etapa}}
+												</div>
+							      			</td>	
+							      		{% endif %}
+
+							      		{% if pedido.estado.etapa == "Terminado" %}
+						      				<td>
+						      					<div class="alert alert-success" role="alert">
+													{{pedido.estado.etapa}}
+												</div>
+							      			</td>	
+							      		{% endif %}
+
+
+							      		<td>
+							      			<a href="{{ pedido.qr_code.url }}"><img class="img-fluid" width="100" height="100" src="{{ pedido.qr_code.url }}"></a>
+							      		</td>
+
+							      		<td>
+							      			<a class="btn btn-secondary btn-block" href="{% url 'update_pedido' pk=pedido.id %}">Actualizar</a>
+
+							      			{% if user.is_superuser and user.is_authenticated %}
+							      				<a href="#" class="btn btn-danger btn-block">Borrar</a>
+							      			{% else %}
+
+							      			{% endif %}
+							      		</td>
+							      	</tr>
+							      	{% endif %}
+							    {% endfor %}
+							{% else %}
+
+								<h3 class="alert-danger"> No hay pedidos registrados por los momentos.</h3>
+							{% endif %}
+					</table>
+				</div>
+			</div>
 
 		</div>
 	</div>
 
+
+	<!--div class="container-fluid">
+		<div class="row">
+
+			<div class="col col-md-12 mt-5">
+				<div class="table-responsive">
+					<table class="table bg-light">
+
+						<h3 class="bg-light tect-dark" style="border-radius: 10px 10px 10px 10px;">Pedidos en proceso.</h3>
+					  	<thead>
+					  			<tr>
+					      			<th scope="col">Orden de Pedido</th>
+					      			<th scope="col">Nombre del Cliente</th>
+					      			<th scope="col">Fecha de ingreso</th>
+					      			<th scope="col">Fecha de ingreso al taller</th>
+					      			<th scope="col">Fecha de egreso</th>
+					      			<th scope="col">Estado del pedido</th>
+					      			<th scope="col">Codigo qr</th>
+					      			<th scope="col">Opciones</th>
+					    		</tr>
+					  		</thead>
+					  		<tbody class="bg-light">
+
+					  		{% if object_list %}
+								{% for pedido in object_list %}
+									{% if pedido.estado.etapa != "Terminado" %}
+
+					  				<tr>
+										<td>
+											<a href="{% url 'Orden_pedido' pk=pedido.orden_pedido %}" target="popup" onclick="window.open('{% url 'Orden_pedido' pk=pedido.orden_pedido %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">{{pedido.orden_pedido}}</a>
+										</td>
+
+										<td>
+											<a href="{% url 'cliente' pk=pedido.persona.id %}" target="popup" onclick="window.open('{% url 'cliente' pk=pedido.persona.id %}','popup','width=800,height=800,scrollbars=no,resizable=no, center'); return false;">{{pedido.persona.nombre}} {{pedido.persona.apellido}} </a>
+										</td>
+
+							      		<td>{{pedido.fecha_ingreso}}</td>
+
+							      		{% if pedido.fecha_taller%}
+							      			<td>{{pedido.fecha_taller}}</td>
+							      		{% else %}
+							      			<td>--/--/----</td>	
+							      		{% endif %}
+
+
+							      		{% if pedido.fecha_egreso%}
+							      			<td>{{pedido.fecha_egreso}}</td>
+							      		{% else %}
+							      			<td>--/--/----</td>	
+							      		{% endif %}
+
+							      		{% if pedido.estado.etapa == "Recibido" %}
+
+							      			<td>
+							      				<div class="alert alert-info" role="alert">
+													{{pedido.estado.etapa}}
+												</div>
+							      			</td>	
+							      		{% endif %}
+
+
+							      		{% if pedido.estado.etapa == "En Proceso" %}
+
+							      			<td>
+							      				<div class="alert alert-warning" role="alert">
+													{{pedido.estado.etapa}}
+												</div>
+							      			</td>	
+							      		{% endif %}
+
+							      		{% if pedido.estado.etapa == "Terminado" %}
+						      				<td>
+						      					<div class="alert alert-success" role="alert">
+													{{pedido.estado.etapa}}
+												</div>
+							      			</td>	
+							      		{% endif %}
+
+
+							      		<td>
+							      			<a href="{{ pedido.qr_code.url }}"><img class="img-fluid" width="100" height="100" src="{{ pedido.qr_code.url }}"></a>
+							      		</td>
+
+							      		<td>
+							      			<a class="btn btn-secondary btn-block" href="{% url 'update_pedido' pk=pedido.id %}">Actualizar</a>
+
+							      			{% if user.is_superuser and user.is_authenticated %}
+							      				<a href="#" class="btn btn-danger btn-block">Borrar</a>
+							      			{% else %}
+
+							      			{% endif %}
+							      		</td>
+							      	</tr>
+							      	{% endif %}
+							    {% endfor %}
+							{% else %}
+
+								<h3 class="alert-danger"> No hay pedidos registrados por los momentos.</h3>
+							{% endif %}
+					</table>
+				</div>
+			</div-->
 {% else %}
 	<h2 class="text-danger">Acceso denegado</h2>
 {% endif %}

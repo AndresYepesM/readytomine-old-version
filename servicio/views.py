@@ -39,6 +39,7 @@ class UpdatePedido(UpdateView):
 def ShowOrder(request, pk):
 	# Show Order information.
 	context = {'posts': Pedido.objects.get(orden_pedido=pk)}
+	c = 0
 	return render(request,  'servicios/show_order.html', context)
 
 

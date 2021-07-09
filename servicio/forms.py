@@ -87,12 +87,13 @@ class NewPart(forms.ModelForm):
 		fields={
 			'tipo_parte',
 			'serial_parte',
+			'if_garantia',
 		}
-
-		exclude={'proceso',}
 
 		labels={
 			'tipo_parte': 'Nombre o tipo de la parte',
 
-			'serial_parte': 'Serial de la parte'
+			'serial_parte': 'Serial de la parte',
+
+			'if_garantia': 'Tiene Garantia activa?',
 		}

@@ -67,14 +67,38 @@
 							{{ form|crispy }}
 
 							<button type="submit" class="btn btn-primary">Agregar nueva parte</button>
+
+							<button type="value" class="btn btn-info" value="Random Number!" onclick="Random();" >Generar serial interno</button>
 							
-							<a href="{% url 'listado_pedidos' %}" class="btn btn-secondary">Regresar</a>
+							<a href="{% url 'listado_pedidos' %}" class="btn btn-secondary" onClick="javascript:window.close('','_parent','');">Terminar</a>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		function Random() {
+        	var rnd = Math.floor(Math.random() * 1000000000);
+        	document.getElementById('id_serial_parte').value = rnd;
+    	}
+
+    	var count_click = 2;
+
+    	function count_click_add(){
+    		count_click +=1;
+    	}
+
+    	$("#count_click").text(count_click);
+
+		$( document ).ready(function(){
+  			$("button[name='count_click']").click(function(){
+     			count_click_add();
+ 			 });
+		});
+
+	</script>
 
 {% else %}
 	<h2 class="text-danger">Acceso denegado</h2>

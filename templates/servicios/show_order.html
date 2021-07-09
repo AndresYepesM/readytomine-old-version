@@ -57,10 +57,30 @@
 	{% if posts%}	
 	<div class="container mt-4">
 		<div class="row justify-content-center">
-			<div class="col col-md-12 col-lg-6">
+			<div class="col col-md-12 col-lg-9">
 				<div class="card shadow-lg p-3 mb-5 bg-white rounded">
 					 <div class="card-header"><h3>Numero de Pedido N# {{posts.orden_pedido}}</h3></div>
 					<div class="card-body">
+
+						{% if posts.estado.etapa == "Recibido" %}
+							<div class="alert alert-info" role="alert">
+								{{posts.estado.etapa}}
+							</div>
+						{% endif %}
+
+						{% if posts.estado.etapa == "En Proceso" %}
+
+							<div class="alert alert-warning" role="alert">
+								{{posts.estado.etapa}}
+							</div>
+
+						{% endif %}
+
+						{% if posts.estado.etapa == "Terminado" %}
+						    <div class="alert alert-success" role="alert">
+								{{posts.estado.etapa}}
+							</div>
+						{% endif %}
 
 						<h5>
 						  Nombre del cliente:
@@ -119,6 +139,8 @@
 										<tr>
 											<th scope="col">Nombre de la parte</th>
 											<th scope="col">Serial de la parte</th>
+											<th scope="col">Garantia</th>
+											<th scope="col">Reparado por:</th>
 										</tr>
 									</thead>
 
@@ -135,7 +157,29 @@
 									   		</td>
 
 									   		<td>
-									   			{{parte.proceso}}
+									   			{% if parte.if_garantia == True %}
+									   				<div class="alert alert-success" role="alert">
+														<p>Activa</p>
+													</div>
+									   			{% endif %}
+
+									   			{% if parte.if_garantia == False %}
+									   				<div class="alert alert-danger" role="alert">
+														<p>Inactiva</p>
+													</div>
+									   			{% endif %}
+									   		</td>
+
+									   		<td>
+									   			{% if parte.emplo_name %}
+
+									   				<p>{{parte.emplo_name.first_name}}  {{parte.emplo_name.last_name}}</p>
+
+									   			{% else %}
+
+									   				-----------
+
+									   			{% endif %}
 									   		</td>
 										</tr>
 										{% endfor %}
