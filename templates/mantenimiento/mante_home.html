@@ -11,21 +11,9 @@
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul class="navbar-nav mr-auto">
 
-			    {% if user.is_authenticated and user.is_staff or user.is_superuser%}
-			      <li class="nav-item dropdown">
-			        	<a class="nav-link dropdown-toggle btn btn-outline-light text-light ml-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			         		Administracion
-			        	</a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				          <a class="dropdown-item" href="#">Ventas</a>
-				          <div class="dropdown-divider"></div>
-				          <a class="dropdown-item" href="{% url 'listado_pedidos' %}">Servicio</a>
-				        </div>
-		      		</li>
-		      	{% endif %}
 		      	{% if user.is_authenticated or user.is_superuser%}
 		      		<li class="nav-item active">
-			        	<a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'Mante_home' %}">Mantenimiento</a>
+			        	<a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'Mante_home' %}">Inicio</a>
 			    	</li>
 		      	{% endif %}
 			    </ul>
@@ -65,4 +53,27 @@
 	  	</div>
 	</nav>
 
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col col-md-12 col-lg-9">
+				<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+					<div class="card-header"><h3>Ingresar numero de pedido a trabajar.</h3></div>
+
+					<div class="card-body">
+						<form method="POST" action="{% url 'Mante_pedido' %}">
+							{% csrf_token %}
+							<div class="input-group mb-3">
+
+					  			<input type="search" class="form-control" placeholder="Ingrese el numero del pedido" aria-label="Search" name="searched"  aria-describedby="basic-addon2">
+
+					  			<div class="input-group-append">
+					    			<button class="btn btn-outline-dark" type="submit">Buscar pedido</button>
+					  			</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

@@ -20,4 +20,7 @@ urlpatterns = [
 
     #Service app
     re_path('servicio/', include('servicio.urls')),
+
+    # Mantenimiento app
+    re_path('mantenimiento/', include('mantenimiento.urls')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
