@@ -19,7 +19,7 @@
 
 			    <li class="nav-item active">
 
-			    	<a class="nav-link text-light btn btn-outline-light ml-2" href="#" target="popup" onclick="window.open('#','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
+			    	<a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'Buscar_Pedido' %}" target="popup" onclick="window.open('{% url 'Buscar_Pedido' %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
 						Buscar pedido
 					</a>
 
@@ -78,7 +78,7 @@
 		<div class="row">
 
 			<div class="col col-md-6 mt-5">
-				
+
 				<h3 class="bg-light tect-dark pt-1 pb-1 pl-3" style="border-radius: 10px 10px 10px 10px;">Pedidos en proceso.</h3>
 
 				<div class="table-responsive">

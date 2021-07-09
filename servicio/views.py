@@ -63,3 +63,24 @@ class NewPart(CreateView):
 	form_class = NewPart
 	template_name='servicios/new_part.html'
 	success_url=reverse_lazy('Nueva_parte')
+
+
+@login_required(login_url='/accounts/login/')
+# Search Pedido
+def SearchPedido(request):
+
+
+	return  render(request, 'servicios/search_servicio.html')
+
+@login_required(login_url='/accounts/login/')
+# Search Pedido
+def ResultServicio(request):
+
+	if request.method == 'POST':
+
+			searched = request.POST['searched']
+			servicio = Pedido.objects.filter(orden_pedido__contains=searched)
+			return  render(request, 'servicios/result_servicio.html', {'searched':searched, 'servicio':servicio})
+
+	else:
+		return  render(request, 'servicios/result_servicio.htmll')
