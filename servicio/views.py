@@ -39,7 +39,6 @@ class UpdatePedido(UpdateView):
 def ShowOrder(request, pk):
 	# Show Order information.
 	context = {'posts': Pedido.objects.get(orden_pedido=pk)}
-	c = 0
 	return render(request,  'servicios/show_order.html', context)
 
 
@@ -68,12 +67,10 @@ class NewPart(CreateView):
 @login_required(login_url='/accounts/login/')
 # Search Pedido
 def SearchPedido(request):
-
-
 	return  render(request, 'servicios/search_servicio.html')
 
 @login_required(login_url='/accounts/login/')
-# Search Pedido
+# Search Pedido resultado
 def ResultServicio(request):
 
 	if request.method == 'POST':
@@ -81,6 +78,11 @@ def ResultServicio(request):
 			searched = request.POST['searched']
 			servicio = Pedido.objects.filter(orden_pedido__contains=searched)
 			return  render(request, 'servicios/result_servicio.html', {'searched':searched, 'servicio':servicio})
-
 	else:
 		return  render(request, 'servicios/result_servicio.htmll')
+
+
+def TrackingPage(request, pk):
+	# Show Order information.
+	context = {'posts': Pedido.objects.get(orden_pedido=pk)}
+	return render(request,  'servicios/track_pedido.html', context)

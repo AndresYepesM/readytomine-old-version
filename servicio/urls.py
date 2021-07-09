@@ -35,8 +35,8 @@ urlpatterns = [
     path('Buscar_pedido/', views.SearchPedido, name='Buscar_Pedido'),
 
     # Result Pedido
-    path('Resultado/', views.ResultServicio, name='Resultado_Pedido')
+    path('Resultado/', views.ResultServicio, name='Resultado_Pedido'),
 
     # tracing number page
-    #re_path(r'^track_del_pedido/(?P<pk>\d+)$', views.TrackingPage, name='track_pedido')
+    re_path(r'^track_del_pedido/(?P<pk>\d+)$', views.TrackingPage, name='track_pedido'),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -18,6 +18,6 @@ urlpatterns = [
     # Users administration site
     re_path('', include('user.urls')),
 
-    #
+    #Service app
     re_path('servicio/', include('servicio.urls')),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

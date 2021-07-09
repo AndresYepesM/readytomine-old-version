@@ -1,54 +1,135 @@
-{% extends "index.html" %}
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
 
 {% block content %}
 
+{% if posts%}	
 	<div class="container mt-4">
 		<div class="row justify-content-center">
-			<div class="col col-md-12 col-lg-6">
-				<div class="card">
+			<div class="col col-md-12 col-lg-9">
+				<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+					<div class="card-header"><h3>Tracking del pedido N# {{posts.orden_pedido}}</h3></div>
+
 					<div class="card-body">
-						<form method="post">
-							<h3>
-								Hola! {{ posts.persona.nombre }} {{posts.persona.apellido}}
-							</h3>
 
-							<p>
-								Gracias por usar nuestro servicio en ReadyToMine, su orden de pedido es {{posts.tracking}}
-							</p>
+						{% if posts.estado.etapa == "Recibido" %}
+							<div class="alert alert-info" role="alert">
+								{{posts.estado.etapa}}
+							</div>
+						{% endif %}
 
-								{% if posts.estado.etapa == 'Recibido' %}
+						{% if posts.estado.etapa == "En Proceso" %}
 
-									<p>Hemos recibido su equipo, por los momentos se encuentra en nuestras oficinas ya preparado para ser atendido con las mejores manos de nuestro equipo</p>
+							<div class="alert alert-warning" role="alert">
+								{{posts.estado.etapa}}
+							</div>
 
-									<div class="alert alert-info" role="alert">
-										<p> El estado de su orden esta en Recibido</p>
-									</div>
-								{% endif %}
+						{% endif %}
 
+						{% if posts.estado.etapa == "Terminado" %}
+						    <div class="alert alert-success" role="alert">
+								{{posts.estado.etapa}}
+							</div>
+						{% endif %}
 
-								{% if posts.estado.etapa == 'En proceso' %}
+						<h5>
+						  Nombre del cliente:
+						  <small class="text-muted">{{posts.persona.nombre}} {{posts.persona.apellido}}</small>
+						</h5>
 
-									<p>Hemos recibido su equipo, por los momentos se encuentra en nuestro taller siendo atentido por las manos de nuestros ingenieros</p>
+						<br>
 
-									<div class="alert alert-warning" role="alert">
-										<p> El estado de su orden esta en reparacion</p>
-									</div>
-								{% endif %}
+						<h5>
+							 Fecha de ingreso:
+							 <small class="text-muted">{{posts.fecha_ingreso}}</small>
+						</h5>
 
+						<br>
 
-								{% if posts.estado.etapa == 'Terminado' %}
+						{% if posts.fecha_taller %}
 
-									<p>Le tenemos buenas noticias, su equipo esta listo y en funcionamiento, en breve sera contactado con nuestro empleados para fninalizar la ordem</p>
+							<h5>
+								fecha de ingreso al taller:
+								<small class="text">{{posts.fecha_taller}}</small>
+							</h5>
 
-									<div class="alert alert-success" role="alert">
-										<p> Su equipo esta Terminado, sera contactado en breve por nuestros empleados</p>
-									</div>
-								{% endif %}
-						</form>
+						{% else %}
+
+							<h5>
+								fecha de ingreso al taller:
+								<small class="text">--/--/--</small>
+							</h5>
+
+						{% endif %}
+
+						<br>
+
+						{% if posts.fecha_taller %}
+
+							<h5>
+								fecha de Egreso:
+								<small class="text">{{posts.fecha_egreso}}</small>
+							</h5>
+
+						{% else %}
+
+							<h5>
+								fecha de Egreso:
+								<small class="text">--/--/--</small>
+							</h5>
+
+						{% endif %}
+
+						<br>
+						
+						<h5>Partes de la factura.</h5>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">Nombre de la parte</th>
+											<th scope="col">Serial de la parte</th>
+											<th scope="col">Garantia</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										{% for parte in posts.partes.all%}
+
+										<tr>
+									  		<td>
+									   			{{parte.tipo_parte}}
+											</td>
+
+									  		<td>
+									   			{{parte.serial_parte}}
+									   		</td>
+
+									   		<td>
+									   			{% if parte.if_garantia == True %}
+									   				<div class="alert alert-success" role="alert">
+														<p>Activa</p>
+													</div>
+									   			{% endif %}
+
+									   			{% if parte.if_garantia == False %}
+									   				<div class="alert alert-danger" role="alert">
+														<p>Inactiva</p>
+													</div>
+									   			{% endif %}
+									   		</td>
+
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+{% endif %}
 
 {% endblock %}
