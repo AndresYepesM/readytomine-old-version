@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col col-md-12 col-lg-6">
+				<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+					<div class="card-body">
+						<h2>Parte por agregar.</h2>
+
+						<h5>
+						  Parte:
+						  <small class="text-muted">{{object.tipo_parte}}</small>
+						</h5>
+
+						<h5>
+						  Serial:
+						  <small class="text-muted">{{object.serial_parte}}</small>
+						</h5>
+
+						<form method="post">
+							{% csrf_token %}
+							{{ form|crispy }}
+
+							<button type="submit" class="btn btn-primary">Terminar</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

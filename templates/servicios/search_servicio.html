@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if user.is_staff and user.is_authenticated %}
+
+
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col col-md-12 col-lg-9 mt-5">
+				<form method="POST" action="{% url 'Resultado_Pedido' %}">
+					{% csrf_token %}
+					<div class="input-group mb-3">
+					  <input type="search" class="form-control" placeholder="Ingrese el numero del pedido" aria-label="Search" name="searched"  aria-describedby="basic-addon2">
+
+					  <div class="input-group-append">
+					    <button class="btn btn-outline-light" type="submit">Buscar pedido</button>
+					  </div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% else %}
+	<h2 class="text-danger">Acceso denegado</h2>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn readytomine.wsgi --log-file -
