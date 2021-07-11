@@ -21,15 +21,6 @@ class Cliente(models.Model):
 	def __str__(self):
 		return '{} {}'.format(self.nombre, self.apellido)
 
-class Estado(models.Model):
-	etapa = models.CharField(max_length=65, verbose_name='Etapa del proceso')
-	class Meta:
-		ordering=["-id"]
-		verbose_name_plural="Etapa del pedido"
-	def __str__(self):
-		return str(self.etapa)
-
-
 class Partes(models.Model):
 	tipo_parte = models.CharField(max_length=65, verbose_name='Tipo de parte')
 	serial_parte = models.CharField(max_length=20, verbose_name= 'Serial de las parte')
@@ -50,7 +41,6 @@ class Pedido(models.Model):
 	fecha_egreso = models.DateField(null=True, blank=True)
 	partes = models.ManyToManyField(Partes)
 	qr_code = models.ImageField(upload_to='qr_codes', blank=True)
-	estado = models.ForeignKey(Estado, on_delete=models.CASCADE, null=True, blank=True)
 
 	class Meta:
 		ordering=["-id"]

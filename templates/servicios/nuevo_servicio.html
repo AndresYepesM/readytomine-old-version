@@ -17,7 +17,7 @@
 
 	
 			    <li class="nav-item active">
-			        <a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'admin_home' %}">Inicio</a>
+			        <a class="nav-link text-light btn btn-outline-light ml-2" href="{% url 'listado_pedidos' %}">Regresar</a>
 			    </li>
 
 			    </ul>
@@ -76,8 +76,6 @@
 							<a class="btn btn-secondary" href="{% url 'Nueva_parte' %}" target="popup" onclick="window.open('{% url 'Nueva_parte' %}','popup','width=800,height=800,scrollbars=no,resizable=no'); return false;">
 								Agregar Partes
 							</a>
-							
-							<a href="{% url 'listado_pedidos' %}" class="btn btn-danger">Regresar</a>
 						</form>
 					</div>
 				</div>

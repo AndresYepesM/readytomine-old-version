@@ -26,7 +26,6 @@
 															<th scope="col">Fecha de ingreso al taller</th>
 															<th scope="col">Fecha de egreso</th>
 															<th scope="col">Estado del pedido</th>
-															<th scope="col">Codigo qr</th>
 															<th scope="col">Opciones</th>
 														</tr>
 													</thead>
@@ -56,35 +55,34 @@
 																<td>--/--/----</td>	
 															{% endif %}
 
-															{% if servicios.estado.etapa == "Recibido" %}
+
+															{% if servicios.fecha_ingreso and servicios.fecha_taller == null and servicios.fecha_egreso == null%}
+
 																<td>
-													 				<div class="alert alert-info" role="alert">
-																		{{servicios.estado.etapa}}
+																	<div class="alert alert-info" role="alert">
+																		Recibido
 																	</div>
-																</td>	
-															{% endif %}
+																</td>
 
+															{% elif servicios.fecha_ingreso and servicios.fecha_taller and servicios.fecha_egreso == null%}
 
-															{% if servicios.estado.etapa == "En Proceso" %}
 																<td>
-													   	 			<div class="alert alert-warning" role="alert">
-																		{{servicios.estado.etapa}}
+																	<div class="alert alert-info" role="alert">
+																		En Proceso
 																	</div>
-																</td>	
+																</td>
+
+
+															{% elif servicios.fecha_ingreso and servicios.fecha_taller and servicios.fecha_egreso%}
+
+																<td>
+																	<div class="alert alert-info" role="alert">
+																		Terminado
+																	</div>
+																</td>
+
 															{% endif %}
 
-															{% if servicios.estado.etapa == "Terminado" %}
-												    			<td>
-												      				<div class="alert alert-success" role="alert">
-																		{{servicios.estado.etapa}}
-																	</div>
-																</td>	
-															{% endif %}
-
-
-															<td>
-																<a href="{{ servicios.qr_code.url }}"><img class="img-fluid" width="100" height="100" src="{{ servicios.qr_code.url }}"></a>
-															</td>
 
 															<td>
 																<a class="btn btn-secondary btn-block" href="{% url 'update_pedido' pk=servicios.id %}">Actualizar</a>

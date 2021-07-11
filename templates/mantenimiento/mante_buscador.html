@@ -86,29 +86,31 @@
 																<a>{{servicios.persona.nombre}} {{servicios.persona.apellido}} </a>
 															</td>
 
-															{% if servicios.estado.etapa == "Recibido" %}
+															{% if servicios.fecha_ingreso and servicios.fecha_taller == null and servicios.fecha_egreso == null%}
+
 																<td>
-													 				<div class="alert alert-info" role="alert">
-																		{{servicios.estado.etapa}}
+																	<div class="alert alert-info" role="alert">
+																		Recibido
 																	</div>
-																</td>	
-															{% endif %}
+																</td>
 
+															{% elif servicios.fecha_ingreso and servicios.fecha_taller and servicios.fecha_egreso == null%}
 
-															{% if servicios.estado.etapa == "En Proceso" %}
 																<td>
-													   	 			<div class="alert alert-warning" role="alert">
-																		{{servicios.estado.etapa}}
+																	<div class="alert alert-warning" role="alert">
+																		En Proceso
 																	</div>
-																</td>	
-															{% endif %}
+																</td>
 
-															{% if servicios.estado.etapa == "Terminado" %}
-												    			<td>
-												      				<div class="alert alert-success" role="alert">
-																		{{servicios.estado.etapa}}
+
+															{% elif servicios.fecha_ingreso and servicios.fecha_taller and servicios.fecha_egreso%}
+
+																<td>
+																	<div class="alert alert-success" role="alert">
+																		Terminado
 																	</div>
-																</td>	
+																</td>
+
 															{% endif %}
 
 															<td>

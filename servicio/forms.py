@@ -14,20 +14,16 @@ class NewPedido(forms.ModelForm):
 			'persona',
 			'fecha_ingreso',
 			'partes',
-			'qr_code',
-			'estado',
 		]
 		exclude = [
 			'fecha_taller',
 			'fecha_egreso',
+			'qr_code',
 		]
 		labels = {
 			'orden_pedido': 'orden del pedido',
 			'persona': 'Seleccione el cliente de la orden',
 			'fecha_ingreso': 'fecha de ingreso',
-			'qr_code': 'Codigo qr se generara al terminar el registro.',
-			'estado': 'estado del pedido',
-
 		}
 
 
@@ -41,7 +37,6 @@ class UpdatePedido(forms.ModelForm):
 			'fecha_ingreso',
 			'fecha_taller',
 			'fecha_egreso',
-			'estado',
 		]
 		exclude =[
 			'orden_pedido',
@@ -54,8 +49,6 @@ class UpdatePedido(forms.ModelForm):
 			'fecha_ingreso': 'fecha de ingreso',
 			'fecha_taller': 'Fehca de ingreso al taller',
 			'fecha_egreso': 'fecha de egreso',
-			'qr_code': 'Codigo qr se generara al terminar el registro.',
-			'estado': 'estado del pedido',
 
 		}
 

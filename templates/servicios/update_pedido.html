@@ -61,6 +61,7 @@
 				<div class="card shadow-lg p-3 mb-5 bg-white rounded">
 					<div class="card-body">
 						<h3>Orden de pedido N-{{pedido.orden_pedido}}</h3>
+						
 						<form method="post">
 							{% csrf_token %}
 							{{ form|crispy }}

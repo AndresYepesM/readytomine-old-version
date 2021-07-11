@@ -91,7 +91,6 @@
 					      			<th scope="col">Fecha de ingreso al taller</th>
 					      			<th scope="col">Fecha de egreso</th>
 					      			<th scope="col">Estado del pedido</th>
-					      			<th scope="col">Codigo qr</th>
 					      			<th scope="col">Opciones</th>
 					    		</tr>
 					  		</thead>
@@ -99,7 +98,7 @@
 
 					  		{% if object_list %}
 								{% for pedido in object_list %}
-									{% if pedido.estado.etapa != "Terminado" %}
+									{% if pedido.fecha_egreso == null%}
 
 					  				<tr>
 										<td>
@@ -125,37 +124,30 @@
 							      			<td>--/--/----</td>	
 							      		{% endif %}
 
-							      		{% if pedido.estado.etapa == "Recibido" %}
+
+
+							      		{% if pedido.fecha_ingreso and pedido.fecha_taller == null and pedido.fecha_egreso == null%}
 
 							      			<td>
 							      				<div class="alert alert-info" role="alert">
-													{{pedido.estado.etapa}}
+													Recibido
 												</div>
-							      			</td>	
-							      		{% endif %}
+							      			</td>
 
-
-							      		{% if pedido.estado.etapa == "En Proceso" %}
-
+							      		{% elif pedido.fecha_ingreso and pedido.fecha_taller and pedido.fecha_egreso == null%}
 							      			<td>
 							      				<div class="alert alert-warning" role="alert">
-													{{pedido.estado.etapa}}
+													En Proceso
 												</div>
-							      			</td>	
+							      			</td>
+
+							      		{% elif pedido.fecha_ingreso and pedido.fecha_taller and pedido.fecha_egreso%}
+							      			<td>
+							      				<div class="alert alert-success">
+							      					Terminado
+							      				</div>
+							      			</td>
 							      		{% endif %}
-
-							      		{% if pedido.estado.etapa == "Terminado" %}
-						      				<td>
-						      					<div class="alert alert-success" role="alert">
-													{{pedido.estado.etapa}}
-												</div>
-							      			</td>	
-							      		{% endif %}
-
-
-							      		<td>
-							      			<a href="{{ pedido.qr_code.url }}"><img class="img-fluid" width="100" height="100" src="{{ pedido.qr_code.url }}"></a>
-							      		</td>
 
 							      		<td>
 							      			<a class="btn btn-secondary btn-block" href="{% url 'update_pedido' pk=pedido.id %}">Actualizar</a>
@@ -191,7 +183,6 @@
 					      			<th scope="col">Fecha de ingreso al taller</th>
 					      			<th scope="col">Fecha de egreso</th>
 					      			<th scope="col">Estado del pedido</th>
-					      			<th scope="col">Codigo qr</th>
 					      			<th scope="col">Opciones</th>
 					    		</tr>
 					  		</thead>
@@ -199,7 +190,7 @@
 
 					  		{% if object_list %}
 								{% for pedido in object_list %}
-									{% if pedido.estado.etapa == "Terminado" %}
+									{% if pedido.fecha_egreso%}
 
 					  				<tr>
 										<td>
@@ -225,37 +216,30 @@
 							      			<td>--/--/----</td>	
 							      		{% endif %}
 
-							      		{% if pedido.estado.etapa == "Recibido" %}
+
+
+							      		{% if pedido.fecha_ingreso and pedido.fecha_taller == null and pedido.fecha_egreso == null%}
 
 							      			<td>
 							      				<div class="alert alert-info" role="alert">
-													{{pedido.estado.etapa}}
+													Recibido
 												</div>
-							      			</td>	
-							      		{% endif %}
+							      			</td>
 
-
-							      		{% if pedido.estado.etapa == "En Proceso" %}
-
+							      		{% elif pedido.fecha_ingreso and pedido.fecha_taller and pedido.fecha_egreso == null%}
 							      			<td>
 							      				<div class="alert alert-warning" role="alert">
-													{{pedido.estado.etapa}}
+													En Proceso
 												</div>
-							      			</td>	
+							      			</td>
+
+							      		{% elif pedido.fecha_ingreso and pedido.fecha_taller and pedido.fecha_egreso%}
+							      			<td>
+							      				<div class="alert alert-success">
+							      					Terminado
+							      				</div>
+							      			</td>
 							      		{% endif %}
-
-							      		{% if pedido.estado.etapa == "Terminado" %}
-						      				<td>
-						      					<div class="alert alert-success" role="alert">
-													{{pedido.estado.etapa}}
-												</div>
-							      			</td>	
-							      		{% endif %}
-
-
-							      		<td>
-							      			<a href="{{ pedido.qr_code.url }}"><img class="img-fluid" width="100" height="100" src="{{ pedido.qr_code.url }}"></a>
-							      		</td>
 
 							      		<td>
 							      			<a class="btn btn-secondary btn-block" href="{% url 'update_pedido' pk=pedido.id %}">Actualizar</a>

@@ -13,24 +13,26 @@
 
 					<div class="card-body">
 
-						{% if posts.estado.etapa == "Recibido" %}
-							<div class="alert alert-info" role="alert">
-								{{posts.estado.etapa}}
-							</div>
-						{% endif %}
+					{% if posts.fecha_ingreso and posts.fecha_taller == null and posts.fecha_egreso == null%}
 
-						{% if posts.estado.etapa == "En Proceso" %}
+							<div class="alert alert-info" role="alert">
+								Recibido
+							</div>
+
+
+						{% elif posts.fecha_ingreso and posts.fecha_taller and posts.fecha_egreso == null%}
 
 							<div class="alert alert-warning" role="alert">
-								{{posts.estado.etapa}}
+								En Proceso
 							</div>
 
-						{% endif %}
 
-						{% if posts.estado.etapa == "Terminado" %}
-						    <div class="alert alert-success" role="alert">
-								{{posts.estado.etapa}}
+						{% elif posts.fecha_ingreso and posts.fecha_taller and posts.fecha_egreso%}
+
+							<div class="alert alert-success">
+							    Terminado
 							</div>
+
 						{% endif %}
 
 						<h5>
@@ -51,32 +53,32 @@
 
 							<h5>
 								fecha de ingreso al taller:
-								<small class="text">{{posts.fecha_taller}}</small>
+								<small class="text-muted">{{posts.fecha_taller}}</small>
 							</h5>
 
 						{% else %}
 
 							<h5>
 								fecha de ingreso al taller:
-								<small class="text">--/--/--</small>
+								<small class="text-muted">--/--/--</small>
 							</h5>
 
 						{% endif %}
 
 						<br>
 
-						{% if posts.fecha_taller %}
+						{% if posts.fecha_egreso %}
 
 							<h5>
 								fecha de Egreso:
-								<small class="text">{{posts.fecha_egreso}}</small>
+								<small class="text-muted">{{posts.fecha_egreso}}</small>
 							</h5>
 
 						{% else %}
 
 							<h5>
 								fecha de Egreso:
-								<small class="text">--/--/--</small>
+								<small class="text-muted">--/--/--</small>
 							</h5>
 
 						{% endif %}
