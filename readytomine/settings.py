@@ -83,22 +83,15 @@ WSGI_APPLICATION = 'readytomine.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'db_readytomine',
-#        'USER': 'Kanderson',
-#        'PASSWORD': 'Kander26369180',
-#        'HOST': '127.0.0.1',
-#        'PORT': '3306',
-#  }
-#}
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'n68aafp2wngj6m5s',
+        'USER': 'hiofsr3dixmom4bg',
+        'PASSWORD': 'h4nziar570tnh63c',
+        'HOST': 'pk1l4ihepirw9fob.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        'PORT': '3306',
+  }
 }
 
 # Password validation
