@@ -54,7 +54,7 @@ class NewClient(CreateView):
 	model = Cliente
 	form_class = NewClient
 	template_name = 'servicios/nuevo_cliente.html'
-	success_url = reverse_lazy('Nuevo_cliente')
+	success_url = reverse_lazy('cliente_done')
 
 class NewPart(CreateView):
 
@@ -69,6 +69,12 @@ class NewPart(CreateView):
 def SearchPedido(request):
 	return  render(request, 'servicios/search_servicio.html')
 
+@login_required(login_url='/accounts/login/')
+# New client success
+def NewClientDone(request):
+	return render(request, 'servicios/new_client_done.html')
+
+	
 @login_required(login_url='/accounts/login/')
 # Search Pedido resultado
 def ResultServicio(request):

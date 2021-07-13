@@ -85,13 +85,9 @@ WSGI_APPLICATION = 'readytomine.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'n68aafp2wngj6m5s',
-        'USER': 'hiofsr3dixmom4bg',
-        'PASSWORD': 'h4nziar570tnh63c',
-        'HOST': 'pk1l4ihepirw9fob.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
-  }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation

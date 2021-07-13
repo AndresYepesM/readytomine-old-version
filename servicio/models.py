@@ -25,6 +25,7 @@ class Partes(models.Model):
 	tipo_parte = models.CharField(max_length=65, verbose_name='Tipo de parte')
 	serial_parte = models.CharField(max_length=20, verbose_name= 'Serial de las parte')
 	if_garantia = models.BooleanField(null=True)
+	observacion = models.CharField(max_length=250, verbose_name='Observacion de la parte')
 	emplo_name = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 	class Meta:
 		ordering=["-id"]

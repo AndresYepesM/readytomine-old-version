@@ -19,6 +19,9 @@ urlpatterns = [
     # New Cliente
     path('nuevo_cliente/', login_required(NewClient.as_view()), name='Nuevo_cliente'),
 
+    # New Client success
+    path('nuevo_cliente_agregado/', views.NewClientDone, name='cliente_done'),
+
     # New Part
     path('Nueva_parte_pedido/', login_required(NewPart.as_view()), name='Nueva_parte'),
 

@@ -8,7 +8,7 @@ class NewPedido(forms.ModelForm):
 
 	class Meta:
 		model = Pedido
-		widgets={'fecha_ingreso': DateInput(), 'fecha_egreso': DateInput(), 'fehca_taller': DateInput()}
+		widgets={'fecha_ingreso': DateInput(), 'fecha_egreso': DateInput(), 'fehca_taller': DateInput(), 'orden_pedido':forms.NumberInput(attrs={'readonly':'readonly'})}
 		fields = [
 			'orden_pedido',
 			'persona',
@@ -16,12 +16,13 @@ class NewPedido(forms.ModelForm):
 			'partes',
 		]
 		exclude = [
+
 			'fecha_taller',
 			'fecha_egreso',
 			'qr_code',
 		]
 		labels = {
-			'orden_pedido': 'orden del pedido',
+			'orden_pedido': ' ',
 			'persona': 'Seleccione el cliente de la orden',
 			'fecha_ingreso': 'fecha de ingreso',
 		}
