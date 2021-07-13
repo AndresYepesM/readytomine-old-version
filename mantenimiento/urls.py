@@ -5,13 +5,15 @@ from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from mantenimiento import views
-from .views import UpdateParte
+from .views import UpdateParte, ManteHomeList
 
 
 urlpatterns = [
 
 	#Home mantenimiento.
-	path('servicios/', views.ManteHome, name='Mante_home'),
+	#path('servicios/', views.ManteHome, name='Mante_home'),
+
+	path('servicios/', login_required(ManteHomeList.as_view()), name='Mante_home'),
 
 	#Mante resultado
 	path('pedido/', views.ManteBuscador, name='Mante_pedido'),

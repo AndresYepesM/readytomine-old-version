@@ -16,11 +16,17 @@ from .forms import *
 
 # Create your views here.
 
-@login_required(login_url='/accounts/login')
+#@login_required(login_url='/accounts/login')
 # Mantenimiento home
-def ManteHome(request):
+#def ManteHome(request):
 
-	return render(request, 'mantenimiento/mante_home.html')
+#	return render(request, 'mantenimiento/mante_home.html')
+
+class ManteHomeList(ListView):
+	# Listado de los pedidos de servicio
+	model = Pedido
+	template_name = 'mantenimiento/mante_home.html'
+
 
 @login_required(login_url='/accounts/login/')
 # Search Pedido resultado
