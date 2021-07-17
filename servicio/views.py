@@ -21,19 +21,35 @@ class ServicioList(ListView):
 	model = Pedido
 	template_name = 'servicios/servicio_home.html'
 
+class NewOrderSucces(ListView):
+
+	model = Pedido
+	template_name = 'servicios/order_success.html'
+
+class DeleteOrderSucces(ListView):
+
+	model = Pedido
+	template_name = 'servicios/order_delete_success.html'
+
 
 class NewServicio(CreateView):
 	# Creacion de nuevos pedidos de servicio
 	model = Pedido
 	form_class = NewPedido
 	template_name = 'servicios/nuevo_servicio.html'
-	success_url = reverse_lazy('listado_pedidos')
+	success_url = reverse_lazy('New_Order_succes')
 
 class UpdatePedido(UpdateView):
 	model = Pedido
 	form_class = UpdatePedido
 	template_name = 'servicios/update_pedido.html'
-	success_url = reverse_lazy('listado_pedidos')
+	success_url = reverse_lazy('New_Order_succes')
+
+class DeletePedido(DeleteView):
+
+	model = Pedido
+	template_name = 'servicios/delete_pedido.html'
+	success_url = reverse_lazy('delete_success')
 
 @login_required(login_url='/accounts/login')
 def ShowOrder(request, pk):

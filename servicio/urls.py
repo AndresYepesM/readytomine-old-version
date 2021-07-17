@@ -5,7 +5,7 @@ from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from servicio import views
-from .views import ServicioList, NewServicio, UpdatePedido, NewClient, NewPart
+from .views import ServicioList, NewServicio, UpdatePedido, NewClient, NewPart, NewOrderSucces, DeletePedido, DeleteOrderSucces
 
 
 urlpatterns = [
@@ -15,6 +15,9 @@ urlpatterns = [
 
     # New Servicio
     path('nuevo_pedido/', login_required(NewServicio.as_view()), name='Nuevo_pedido'),
+
+    # Mensaje de exito
+    path('nuevo_pedido_registrado/', login_required(NewOrderSucces.as_view()), name='New_Order_succes'),
 
     # New Cliente
     path('nuevo_cliente/', login_required(NewClient.as_view()), name='Nuevo_cliente'),
@@ -33,6 +36,12 @@ urlpatterns = [
 
     # Update Pedido
     re_path(r'^Actualizar_pedido/(?P<pk>\d+)$', login_required(UpdatePedido.as_view()), name='update_pedido'),
+
+    # Delete Pedudo
+    re_path(r'^Borrar_pedido(?P<pk>\d+)$', login_required(DeletePedido.as_view()), name='borrar_pedido'),
+
+    #delete pedido success
+     path('pedido_eliminado/', login_required(DeleteOrderSucces.as_view()), name='delete_success'),
 
     # Search Pedido
     path('Buscar_pedido/', views.SearchPedido, name='Buscar_Pedido'),
